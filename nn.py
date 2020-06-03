@@ -8,9 +8,8 @@ class Neuron:
         
         self.weights = [random.randint(0, 100)/100 for i in range(size_previous)]
         self.length = len(self.weights)
-        self.bias = 0
         self.value = None
-        self.learning_rate = 0.2
+        self.learning_rate = 0.9
         self.i = index_
 
     def set_activation(self, _input:list, input_layer=False):
@@ -18,14 +17,14 @@ class Neuron:
             r = 0
             for i in range(self.length):
                 r += self.weights[i]*_input[i]
-            self.value = r
+            self.value = self.activation(r)
         else:
             r = 0
             for i in range(self.length):
                 r += self.weights[i]*_input[i].value
-            self.value = r
+            self.value = self.activation(r)
 
-    def activation(self, x, bias):
+    def activation(self, x, bias=0):
         return (1 / (1 + math.exp(-x))) + bias
     
     def update_weights(self, adjustments):
